@@ -40,4 +40,9 @@ class LoginController extends Controller
                 FALSE, 213);
         }
     }
+    public function getLogin(Request $request)
+    {
+        return $this->returnJsonResponse('your token is invalid please login again', [],
+            FALSE, 213);
+    }
 }

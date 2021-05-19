@@ -41,6 +41,11 @@ class Hospital extends Authenticatable  implements JWTSubject
         return $this->belongsToMany(Category::class);
     }
 
+    public function beds()
+    {
+        return $this->hasMany(Bed::class);
+    }
+
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -60,4 +65,17 @@ class Hospital extends Authenticatable  implements JWTSubject
         return [];
     }
 
+    public function scopeOrderByDistance($query)
+    {
+        $latitude = auth('api')->user()->latitude;
+        $longitude = auth('api')->user()->longitude;
+        return $query->selectRaw("*,
+            ( 6371000 * acos( cos( radians(?) ) *
+                cos( radians( latitude ) )
+                * cos( radians( longitude ) - radians(?)
+                ) + sin( radians(?) ) *
+                sin( radians( latitude ) ) )
+            ) AS distance", [$latitude, $longitude, $latitude])
+            ->orderBy("distance",'asc');
+    }
 }

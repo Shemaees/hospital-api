@@ -3,9 +3,12 @@
 
 namespace App\Http\Controllers\Traits;
 
+use App\Http\Resources\HospitalProfileRecourse;
+use App\Http\Resources\UserProfileRecourse;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -36,6 +39,10 @@ trait AuthTrait
      */
     protected function createNewToken($token)
     {
+        if (request()->has('type') && request('type') == 'user')
+            $profile = new UserProfileRecourse($this->guard()->user());
+        elseif (request()->has('type') && request('type') == 'hospital')
+            $profile = new HospitalProfileRecourse($this->guard()->user());
         return $this->returnJsonResponse('You register successfully',
             [
                 "credentials" =>[
@@ -43,7 +50,7 @@ trait AuthTrait
                     'token_type'            => 'bearer',
                     'expires_in'            =>  $this->guard()->factory()->getTTL() * 60*60*24*30
                 ],
-                "profile" => $this->guard()->user(),
+                "profile" => $profile,
             ],true,202
         );
     }

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
@@ -63,6 +64,20 @@ class User extends Authenticatable  implements JWTSubject
      */
     public function getJWTCustomClaims() {
         return [];
+    }
+
+    public function history()
+    {
+        return $this->hasMany(Reservation::class)->where(function ($q){
+            return $q->whereDate('start_at', '>', Carbon::today()->toDateString());
+        });
+    }
+
+    public function upcoming()
+    {
+        return $this->hasMany(Reservation::class)->where(function ($q){
+           return $q->whereDate('start_at', '<=', Carbon::today()->toDateString());
+        });
     }
 
 }

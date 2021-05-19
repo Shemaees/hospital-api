@@ -14,7 +14,7 @@ class Bed extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'category_id', 'type_id', 'hospital_id', 'status'
+        'name', 'category_id', 'type_id', 'hospital_id', 'status', 'day_cost'
     ];
 
 
@@ -22,7 +22,6 @@ class Bed extends Model
     {
         return $this->belongsTo(Hospital::class);
     }
-
 
     public function category()
     {

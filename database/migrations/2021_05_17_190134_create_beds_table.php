@@ -17,7 +17,8 @@ class CreateBedsTable extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('hospital_id')->constrained();
-            $table->foreignId('type_id')->constrained();
+            $table->foreignId('type_id')->default(0)->constrained();
+            $table->float('day_cost');
             $table->enum('status',['Active', 'Reserved', 'Out of service'])->default('Active');
             $table->timestamps();
         });

@@ -19,7 +19,8 @@
 
     Route::group(['prefix' => 'v1' ], function () {
         Route::group(['middleware'=> 'throttle:60,1', 'prefix'=> 'auth'], function (){
-            Route::post('login', [LoginController::class, 'login'])->name('login');
+            Route::get('login', [LoginController::class, 'getLogin'])->name('login');
+            Route::post('login', [LoginController::class, 'login']);
             Route::post('user/register', [RegisterController::class, 'register']);
             Route::post('hospital/register', [RegisterController::class, 'hospitalRegister']);
             Route::group(['prefix'=>'user'], function (){
@@ -39,5 +40,9 @@
                 });
             });
         });
+        Route::group(['prefix'=>'user', 'middleware'=>['auth:api','jwt.verify']], function (){
+            Route::get('hospitals', [\App\Http\Controllers\User\AppController::class, 'index']);
+        });
+
     });
 

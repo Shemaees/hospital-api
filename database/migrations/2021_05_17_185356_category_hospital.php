@@ -17,7 +17,6 @@ class CategoryHospital extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('hospital_id')->constrained();
-            $table->float('day_cost');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\AuthTrait;
+use App\Models\Category;
 use App\Models\Hospital;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -79,6 +80,7 @@ class RegisterController extends Controller
 
             if ($user->save())
             {
+                $user->categories()->attach(Category::all());
                 return $this->createCredential($request->only('email', 'password'));
             }
             else

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\AuthTrait;
+use App\Http\Resources\HospitalProfileRecourse;
+use App\Http\Resources\UserProfileRecourse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 use PHPUnit\Exception;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -24,7 +27,11 @@ class AuthController extends Controller
     public function profile()
     {
         try {
-            return $this->returnJsonResponse('success', $this->guard()->user());
+            if (request()->has('type') && request('type') == 'user')
+                $profile = new UserProfileRecourse($this->guard()->user());
+            elseif (request()->has('type') && request('type') == 'hospital')
+                $profile = new HospitalProfileRecourse($this->guard()->user());
+            return $this->returnJsonResponse('success', $profile );
         }
         catch (Exception | JWTException $e)
         {
