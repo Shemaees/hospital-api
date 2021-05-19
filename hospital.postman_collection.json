@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "f6201ccd-d4b0-4b71-a0f1-25706faad062",
+		"name": "hospital",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "hospital",
+							"item": [
+								{
+									"name": "hospital logout",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MjEzNzAzMTMsImV4cCI6MTc3Njg5MDMxMywibmJmIjoxNjIxMzcwMzEzLCJqdGkiOiJqM0RTSTdNOWVjcVlVbE5TIiwic3ViIjoxLCJwcnYiOiI5ODkxMTNkN2ZlNzM0ZGM2YjViNjgwMzY0MGFhNTY2MGIwZGRmZDc4In0.UQ_6RI3xYHsTMDKQ1_kJu9jGGsdujU_bVE7Xb53JW5E",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/auth/hospital/logout?type=hospital",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"hospital",
+												"logout"
+											],
+											"query": [
+												{
+													"key": "type",
+													"value": "hospital"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "hospital profile",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MjEzNjk1NDIsImV4cCI6MTc3Njg4OTU0MiwibmJmIjoxNjIxMzY5NTQyLCJqdGkiOiJBS2JDWjNTUk9qbEdWbHpvIiwic3ViIjoxLCJwcnYiOiI5ODkxMTNkN2ZlNzM0ZGM2YjViNjgwMzY0MGFhNTY2MGIwZGRmZDc4In0.hC6x2e5sqT7Q1N1UabF_evKs8NHMGb9z1r2NXFb-7Sk",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "",
+												"value": "",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/auth/hospital/profile?type=hospital",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"hospital",
+												"profile"
+											],
+											"query": [
+												{
+													"key": "type",
+													"value": "hospital"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "hospital register",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "type",
+												"value": "hospital",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\" : \"mahmoud.shemeas@almoasherbiz.com\",\r\n    \"password\": \"12345\",\r\n    \"name\": \"mahmoud shemaes\",\r\n    \"phone\": \"01011700774\",\r\n    \"longitude\" : 31.258963,\r\n    \"latitude\": 30.258741,\r\n    \"gender\": \"male\",\r\n    \"type\" : \"hospital\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/auth/hospital/register",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"hospital",
+												"register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "user",
+							"item": [
+								{
+									"name": "user register",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\" : \"mahmoud.shemeas@almoasherbiz.com\",\r\n    \"password\": \"12345\",\r\n    \"name\": \"mahmoud shemaes\",\r\n    \"phone\": \"01011700774\",\r\n    \"longitude\" : 31.258963,\r\n    \"latitude\": 30.258741,\r\n    \"gender\": \"male\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/auth/user/register?type=user",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"user",
+												"register"
+											],
+											"query": [
+												{
+													"key": "type",
+													"value": "user"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "user profile",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MjEzNjkyMjYsImV4cCI6MTc3Njg4OTIyNiwibmJmIjoxNjIxMzY5MjI2LCJqdGkiOiIwdDFmSko3OXF3V2NrYWRsIiwic3ViIjozLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.wBtE0nvHSjM4zBW2uJ52daZ04ZB37lq5I47u3IyDbYc",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "",
+												"value": "",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/auth/user/profile?type=user",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"user",
+												"profile"
+											],
+											"query": [
+												{
+													"key": "type",
+													"value": "user"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "user logout",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MjEzNzAzODgsImV4cCI6MTc3Njg5MDM4OCwibmJmIjoxNjIxMzcwMzg4LCJqdGkiOiJsYkhYaGNKaW85VDZ4NVdtIiwic3ViIjozLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.3o-IQxuNrO2TqmcbpSLuQHpCjDBFlIEHodPvEFKLq9o",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/auth/user/logout?type=user",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"user",
+												"logout"
+											],
+											"query": [
+												{
+													"key": "type",
+													"value": "user"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "login",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" : \"mahmoud.shemeas@almoasherbiz.com\",\r\n    \"password\": \"12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/auth/login?type=user",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "user"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
