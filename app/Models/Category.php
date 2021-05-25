@@ -21,5 +21,8 @@ class Category extends Model
     {
         return $this->belongsToMany(Hospital::class);
     }
-
+    public function beds()
+    {
+        return $this->hasMany(Bed::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Bed;
 use Illuminate\Database\Seeder;
 
 class BedSeeder extends Seeder
@@ -13,6 +14,6 @@ class BedSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Bed::factory(50)->create();
     }
 }

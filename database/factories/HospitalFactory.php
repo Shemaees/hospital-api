@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Hospital;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -32,7 +33,15 @@ class HospitalFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'longitude' => $this->faker->longitude,
             'latitude' => $this->faker->latitude,
-            'branch' => $this->faker->text
+            'branch' => $this->faker->text,
         ];
+    }
+    public function configure()
+    {
+        return $this->afterMaking(function (Hospital $hospital) {
+            //
+        })->afterCreating(function (Hospital $hospital) {
+            $hospital->categories()->attach(Category::all());
+        });
     }
 }

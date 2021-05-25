@@ -41,7 +41,14 @@
             });
         });
         Route::group(['prefix'=>'user', 'middleware'=>['auth:api','jwt.verify']], function (){
-            Route::get('hospitals', [\App\Http\Controllers\User\AppController::class, 'index']);
+            Route::get('categories', [\App\Http\Controllers\User\AppController::class, 'categories']);
+            Route::get('categories/{category}/hospitals', [\App\Http\Controllers\User\AppController::class, 'hospitals']);
+            Route::get('categories/{category}/hospitals/{hospital}/beds',
+                [\App\Http\Controllers\User\AppController::class, 'beds']);
+            Route::post('beds/{bed}',
+                [\App\Http\Controllers\User\AppController::class, 'reserve']);
+            Route::get('reservations/upcoming', [\App\Http\Controllers\User\AppController::class, 'upcoming']);
+            Route::get('reservations/history', [\App\Http\Controllers\User\AppController::class, 'history']);
         });
 
     });

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,5 +32,16 @@ class Bed extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'Active');
+    }
+
+    public function userReserve()
+    {
+        return $this->hasMany(Reservation::class)->where('user_id', auth('api')->id())
+            ->whereDate('start_at', '>' , Carbon::today());
     }
 }

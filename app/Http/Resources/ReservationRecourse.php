@@ -18,6 +18,7 @@ class ReservationRecourse extends JsonResource
             'id' => $this->id,
             'bed' => new BedRecourse($this->bed),
             'user' => new UserResource($this->user),
+            'start_at' => $this->start_at
         ];
     }
 }
