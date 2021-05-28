@@ -3,17 +3,15 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BedRecourse;
-use App\Http\Resources\CategoryRecourse;
-use App\Http\Resources\HospitalResource;
-use App\Http\Resources\ReservationRecourse;
+use App\Http\Resources\User\BedRecourse;
+use App\Http\Resources\User\CategoryRecourse;
+use App\Http\Resources\User\HospitalResource;
+use App\Http\Resources\User\ReservationRecourse;
 use App\Models\Bed;
 use App\Models\Category;
 use App\Models\Hospital;
 use App\Models\Reservation;
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 

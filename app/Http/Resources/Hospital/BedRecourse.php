@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Hospital;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,10 +16,11 @@ class BedRecourse extends JsonResource
     {
         return [
             'id' => $this->id,
-            'hospital' => new HospitalResource($this->hospital),
             'name' => $this->name,
             'day_cost' => $this->day_cost,
             'status' => $this->status,
+            'current_reservation' =>
+                ($this->status == 'Reserved') ? new ReservationRecourse($this->currentReservations()) : null
         ];
     }
 }

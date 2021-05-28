@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Hospital;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReservationRecourse extends JsonResource
+class CategoryRecourse extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,7 @@ class ReservationRecourse extends JsonResource
     {
         return [
             'id' => $this->id,
-            'bed' => new BedRecourse($this->bed),
-            'user' => new UserResource($this->user),
-            'start_at' => $this->start_at
+            'cost' => $this->beds
         ];
     }
 }

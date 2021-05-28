@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HospitalProfileRecourse extends JsonResource
+class HospitalResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,7 +23,6 @@ class HospitalProfileRecourse extends JsonResource
             'latitude' => $this->latitude,
             'address' => $this->address,
             'branch' => $this->branch,
-            'categories' => CategoryRecourse::collection($this->categories),
         ];
     }
 }

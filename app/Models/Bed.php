@@ -44,4 +44,14 @@ class Bed extends Model
         return $this->hasMany(Reservation::class)->where('user_id', auth('api')->id())
             ->whereDate('start_at', '>' , Carbon::today());
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function currentReservations()
+    {
+        return $this->hasMany(Reservation::class)->orderByDesc('id')->first();
+    }
 }

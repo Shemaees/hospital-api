@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\AuthTrait;
-use App\Http\Resources\HospitalProfileRecourse;
-use App\Http\Resources\UserProfileRecourse;
+use App\Http\Resources\User\HospitalProfileRecourse;
+use App\Http\Resources\User\UserProfileRecourse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use PHPUnit\Exception;

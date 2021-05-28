@@ -50,6 +50,22 @@
             Route::get('reservations/upcoming', [\App\Http\Controllers\User\AppController::class, 'upcoming']);
             Route::get('reservations/history', [\App\Http\Controllers\User\AppController::class, 'history']);
         });
+        Route::group(['prefix'=>'hospital', 'middleware'=>['auth:hospital','jwt.verify']], function (){
+            Route::get('categories', [\App\Http\Controllers\User\AppController::class, 'categories']);
+            Route::get('categories/{category}/beds', [\App\Http\Controllers\Hospital\HospitalController::class, 'beds']);
+            Route::post('categories/{category}/beds/new', [\App\Http\Controllers\Hospital\HospitalController::class, 'createBed']);
+            Route::group(['prefix'=>'beds'], function (){
+                Route::get('{bed}/reservations',
+                    [\App\Http\Controllers\Hospital\HospitalController::class, 'reservations']);
+
+                Route::post('{bed}/edit',
+                    [\App\Http\Controllers\Hospital\HospitalController::class, 'editBed']);
+                Route::post('{bed}/delete',
+                    [\App\Http\Controllers\Hospital\HospitalController::class, 'deleteBed']);
+                Route::post('{bed}/reservations/{reservation}/end',
+                    [\App\Http\Controllers\Hospital\HospitalController::class, 'endReservation']);
+            });
+        });
 
     });
 
