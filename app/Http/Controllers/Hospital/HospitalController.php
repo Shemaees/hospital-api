@@ -9,7 +9,6 @@ use App\Models\Bed;
 use App\Models\Category;
 use App\Models\Reservation;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -18,9 +17,17 @@ class HospitalController extends Controller
     public function beds(Category $category)
     {
         try {
+            $beds = $category->beds->where('hospital_id', auth('hospital')->id());
             if (auth('hospital')->user()->beds->count()>0)
                 return $this->returnJsonResponse('success',
-                BedRecourse::collection(auth('hospital')->user()->beds->where('category_id', $category->id)));
+                [
+                    "all" => $beds->count(),
+                    "active" => $beds->where('status', '=', 'Active')->count(),
+                    "reserved" => $beds->where('status', '=', 'Reserved')->count(),
+                    "out" => $beds->where('status', '=', 'Out of service')->count(),
+
+                    "beds" => BedRecourse::collection($beds),
+                ]);
             else
                 return $this->returnJsonResponse('No Beds!',[], false);
         }
