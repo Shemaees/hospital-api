@@ -36,13 +36,13 @@ class LoginController extends Controller
         }
         catch (Exception | JWTException $e)
         {
-            return $this->returnJsonResponse('there is something wrong. please, try again later'. $e, [],
+            return $this->returnJsonResponse('هناك خطأ ما'. $e, [],
                 FALSE, 213);
         }
     }
     public function getLogin(Request $request)
     {
-        return $this->returnJsonResponse('your token is invalid please login again', [],
+        return $this->returnJsonResponse('الرمز غير صحيح', [],
             FALSE, 213);
     }
 }

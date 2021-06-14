@@ -31,11 +31,15 @@ class AppController extends Controller
     {
         try {
             $hospitals = Hospital::whereHas('categories',function($q) use ($category){
-                return $q->where('category_id', $category->id);
+                return $q->where('category_id', $category->id)->whereHas('beds', function ($q)use ($category){
+                    return $q->where('category_id', $category->id);
+                });
             })->when(request('search') , function ($query) use($category) {
                 return $query->where('name', 'like', '%'.request('search').'%');
             })->when(\request('distance') === true , function ($q){
-                return $q->orderByDistance();
+                $latitude = \request('lat') ?? auth('api')->user()->latitude;
+                $longitude = \request('long') ?? auth('api')->user()->longitude;
+                return $q->orderByDistance($latitude, $longitude);
             })->when(\request('cost') === true , function ($q){
                 return $q->orderByCost();
             });
@@ -62,9 +66,9 @@ class AppController extends Controller
     {
         try {
             if ($bed->userReserve->count() > 0)
-                return $this->returnJsonResponse('Already you have reserved this bed !',[],FALSE, 422);
+                return $this->returnJsonResponse('لقد حجزت هذا السرير مسبقا!',[],FALSE, 422);
             elseif ($bed->status !== 'Active')
-                return $this->returnJsonResponse('This bed can not be reserved!',[],FALSE, 422);
+                return $this->returnJsonResponse('لا يمكن حجز هذا السريرالآن!',[],FALSE, 422);
             else
             {
                 $reservation = new Reservation();
@@ -75,13 +79,13 @@ class AppController extends Controller
                 {
                     $bed->status = 'Reserved';
                     if ($bed->update())
-                        return $this->returnJsonResponse('bed reserved successfully');
+                        return $this->returnJsonResponse('تم الحجز بنجاح');
                     else
-                        return $this->returnJsonResponse('try again later!',[],FALSE, 413);
+                        return $this->returnJsonResponse('يرجى المحاولة مرة أخرى!',[],FALSE, 413);
 
                 }
                 else
-                    return $this->returnJsonResponse('There is something wrong!',[],FALSE, 423);
+                    return $this->returnJsonResponse('هناك خطأ ما!',[],FALSE, 423);
             }
         }
         catch (JWTException $e)

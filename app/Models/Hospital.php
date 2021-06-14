@@ -65,10 +65,8 @@ class Hospital extends Authenticatable  implements JWTSubject
         return [];
     }
 
-    public function scopeOrderByDistance($query)
+    public function scopeOrderByDistance($query, $latitude , $longitude)
     {
-        $latitude = auth('api')->user()->latitude;
-        $longitude = auth('api')->user()->longitude;
         return $query->selectRaw("*,
             ( 6371000 * acos( cos( radians(?) ) *
                 cos( radians( latitude ) )
@@ -81,7 +79,8 @@ class Hospital extends Authenticatable  implements JWTSubject
 
     public function scopeOrderByCost($query)
     {
-        return $query->whereHas('beds')->selectRaw("*, day_cost")
-            ->orderBy("distance",'asc')->first();
+        return $query->whereHas('beds', function ($q){
+            return $q->selectRaw("day_cost as cost");
+        });
     }
 }

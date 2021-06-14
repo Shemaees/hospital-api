@@ -84,12 +84,12 @@ class RegisterController extends Controller
                 return $this->createCredential($request->only('email', 'password'));
             }
             else
-                return $this->returnJsonResponse('there is something wrong.', [],
+                return $this->returnJsonResponse('هناك خطأ ما.', [],
                     FALSE, 211);
         }
         catch (JWTException $e)
         {
-            return $this->returnJsonResponse('there is something wrong. please, try again later', [],
+            return $this->returnJsonResponse('هناك خطأ ما يرجى المحاولة مرة أخرى لاحقا', [],
                 FALSE, 213);
         }
     }

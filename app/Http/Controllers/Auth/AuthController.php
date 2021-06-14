@@ -35,7 +35,7 @@ class AuthController extends Controller
         }
         catch (Exception | JWTException $e)
         {
-            return $this->returnJsonResponse('there is something wrong. please, try again later' .$e, [],
+            return $this->returnJsonResponse('هناك خطأ ما' .$e, [],
                 FALSE, 213);
         }
     }
@@ -49,11 +49,11 @@ class AuthController extends Controller
     {
         try {
             $this->guard()->logout();
-            return $this->returnJsonResponse('Successfully logged out');
+            return $this->returnJsonResponse('تم تسجيل الخروج بنجاح');
         }
         catch (Exception | JWTException $e)
         {
-            return $this->returnJsonResponse('there is something wrong. please, try again later' .$e,
+            return $this->returnJsonResponse('هناك خطأ ما' .$e,
                 [], FALSE, 213);
         }
     }
@@ -70,7 +70,7 @@ class AuthController extends Controller
         }
         catch (JWTException $e)
         {
-            return $this->returnJsonResponse('there is something wrong. please, try again later',
+            return $this->returnJsonResponse('هناك خطأ ما',
                 [], FALSE, 213);
         }
     }

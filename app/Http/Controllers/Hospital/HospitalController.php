@@ -29,7 +29,7 @@ class HospitalController extends Controller
                     "beds" => BedRecourse::collection($beds),
                 ]);
             else
-                return $this->returnJsonResponse('No Beds!',[], false);
+                return $this->returnJsonResponse('لا يوجد أسرة!',[], false);
         }
         catch (JWTException $e)
         {
@@ -46,9 +46,9 @@ class HospitalController extends Controller
             $bed->type_id = 1;
             $bed->day_cost = $request->day_cost;
             if ($bed->save())
-                return $this->returnJsonResponse('Created successfully');
+                return $this->returnJsonResponse('تم الحفظ بنجاح');
             else
-                return $this->returnJsonResponse('Can not create now please try again later', [], FALSE, 414);
+                return $this->returnJsonResponse('هناك خطأ ما', [], FALSE, 414);
         }
         catch (JWTException $e)
         {
@@ -65,9 +65,9 @@ class HospitalController extends Controller
             if(isset($request->status)) $bed->status = $request->status;
 
             if ($bed->update())
-                return $this->returnJsonResponse('Updated successfully');
+                return $this->returnJsonResponse('تم التحديث بنجاح');
             else
-                return $this->returnJsonResponse('Can not Update now please try again later', [], FALSE, 414);
+                return $this->returnJsonResponse('هناك خطأ ما', [], FALSE, 414);
         }
         catch (JWTException $e)
         {
@@ -80,13 +80,13 @@ class HospitalController extends Controller
         try {
             if ($bed->reservations->count() > 0)
                 return $this->returnJsonResponse(
-                    'this bed can not be deleted because it has '. $bed->reservations->count() .' reservations',
+                    'لا يمكن حذف السرير لوجود '. $bed->reservations->count() .' حجوزات حالية',
                     [], FALSE, 414);
             else
                 if ($bed->delete())
-                    return $this->returnJsonResponse('Deleted successfully');
+                    return $this->returnJsonResponse('تم الحذف بنجاح');
                 else
-                    return $this->returnJsonResponse('Can not delete now please try again later', [], FALSE, 414);
+                    return $this->returnJsonResponse('هناك خطأ ما', [], FALSE, 414);
         }
         catch (JWTException $e)
         {
@@ -101,7 +101,7 @@ class HospitalController extends Controller
                 return $this->returnJsonResponse('success',
                     ReservationRecourse::collection($bed->reservations));
             else
-                return $this->returnJsonResponse('No Reservations!',[], false);
+                return $this->returnJsonResponse('لا يوجد حجوزات!',[], false);
         }
         catch (JWTException $e)
         {
@@ -118,9 +118,9 @@ class HospitalController extends Controller
             {
                 $bed->status = 'Active';
                 if ($bed->update())
-                    return $this->returnJsonResponse('success');
+                    return $this->returnJsonResponse('تم التحديث');
                 else
-                    return $this->returnJsonResponse('Can not end reservation now please try again later', [], FALSE, 414);
+                    return $this->returnJsonResponse('هناك خطأ ما', [], FALSE, 414);
             }
             else
                 return $this->returnJsonResponse('Can not end reservation now please try again later', [], FALSE, 415);

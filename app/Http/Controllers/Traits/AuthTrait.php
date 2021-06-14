@@ -3,12 +3,11 @@
 
 namespace App\Http\Controllers\Traits;
 
-use App\Http\Resources\HospitalProfileRecourse;
-use App\Http\Resources\UserProfileRecourse;
+use App\Http\Resources\Hospital\HospitalProfileRecourse;
+use App\Http\Resources\User\UserProfileRecourse;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +15,6 @@ trait AuthTrait
 {
 
     /**
-     * @param $request
      * @param $credentials
      *
      * @return JsonResponse
@@ -24,7 +22,7 @@ trait AuthTrait
     protected function createCredential($credentials)
     {
         if (!$token = $this->guard()->attempt((array)$credentials)) {
-            return $this->returnJsonResponse('Unauthorized',
+            return $this->returnJsonResponse('البريد الالكتروني/الباسورد غير صحيح',
                 [], FALSE, 209);
         }
         return $this->createNewToken($token);
@@ -43,7 +41,7 @@ trait AuthTrait
             $profile = new UserProfileRecourse($this->guard()->user());
         elseif (request()->has('type') && request('type') == 'hospital')
             $profile = new HospitalProfileRecourse($this->guard()->user());
-        return $this->returnJsonResponse('You register successfully',
+        return $this->returnJsonResponse('تم التسجيل',
             [
                 "credentials" =>[
                     'access_token'          => $token,
