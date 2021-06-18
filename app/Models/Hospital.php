@@ -67,14 +67,31 @@ class Hospital extends Authenticatable  implements JWTSubject
 
     public function scopeOrderByDistance($query, $latitude , $longitude)
     {
+//        $sqlDistance = DB::raw('
+//        ( 111.045 * acos( cos( radians(?) )
+//        * cos( radians( addresses.latitude ) )
+//        * cos( radians( addresses.longitude )
+//        - radians(' . $data['lng']  . ') )
+//        + sin( radians(' . $data['lat']  . ') )
+//        * sin( radians( addresses.latitude ) ) ) )');
+
         return $query->selectRaw("*,
-            ( 6371000 * acos( cos( radians(?) ) *
-                cos( radians( latitude ) )
-                * cos( radians( longitude ) - radians(?)
-                ) + sin( radians(?) ) *
-                sin( radians( latitude ) ) )
-            ) AS distance", [$latitude, $longitude, $latitude])
+            (111.045 * acos( cos( radians(?) )
+            * cos( radians( latitude ) )
+            * cos( radians( longitude )
+            - radians(?) )
+            + sin( radians(?) )
+            * sin( radians( latitude ))))
+             AS distance", [$latitude, $longitude, $latitude])
             ->orderBy("distance",'asc');
+//        return $query->selectRaw("*,
+//            ( 6371000 * acos( cos( radians(?) ) *
+//                cos( radians( latitude ) )
+//                * cos( radians( longitude ) - radians(?)
+//                ) + sin( radians(?) ) *
+//                sin( radians( latitude ) ) )
+//            ) AS distance", [$latitude, $longitude, $latitude])
+//            ->orderBy("distance",'asc');
     }
 
     public function scopeOrderByCost($query)
